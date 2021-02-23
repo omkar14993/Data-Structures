@@ -77,7 +77,6 @@ public class LinkedList {
 
     public static void main(String[] args) {
         System.out.println("This is a Doubly LinkedList");
-
         LinkedList doublyList = new LinkedList();
         doublyList.insert(22);
         doublyList.insert(33);
