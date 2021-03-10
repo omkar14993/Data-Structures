@@ -52,7 +52,33 @@ public class Trie {
     }
 
     public void delete(String word) {
-        // TODO :- Implement Delete logic
+        delete(root, word, 0);
+    }
+
+    private boolean delete(TrieNode current, String word, int index) {
+        if (index == word.length()) {
+            //when end of word is reached only delete if currrent.endOfWord is true.
+            if (!current.endOfWord) {
+                return false;
+            }
+            current.endOfWord = false;
+            //if current has no other mapping then return true
+            return current.children.size() == 0;
+        }
+        char ch = word.charAt(index);
+        TrieNode node = current.children.get(ch);
+        if (node == null) {
+            return false;
+        }
+        boolean shouldDeleteCurrentNode = delete(node, word, index + 1);
+
+        //if true is returned then delete the mapping of character and trienode reference from map.
+        if (shouldDeleteCurrentNode) {
+            current.children.remove(ch);
+            //return true if no mappings are left in the map.
+            return current.children.size() == 0;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -68,5 +94,8 @@ public class Trie {
         System.out.println(trie.search("bcefg")); // true
         System.out.println(trie.search("abcd")); // true
         System.out.println(trie.search("xxx")); // false
+        trie.delete("abc");
+        System.out.println(trie.search("abc")); // false
+        System.out.println(trie.search("abcd")); // true
     }
 }
