@@ -165,4 +165,48 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return node;
     }
 
+
+    // BST Traversals
+
+    // 1:- DFS Traversal types (Inorder, Preorder & Postorder)
+    // This is using Recursive pattern, we can also traverse using iterative pattern.
+
+    private void printInorder(Node node) {
+        if(node == null)
+            return;
+        printInorder(node.left);
+        System.out.println(node.data);
+        printInorder(node.right);
+    }
+
+    private void printPreorder(Node node) {
+        if(node == null)
+            return;
+        System.out.println(node.data);
+        printPreorder(node.left);
+        printInorder(node.right);
+    }
+
+    private void printPostorder(Node node) {
+        if(node == null)
+            return;
+        printPostorder(node.left);
+        printPostorder(node.right);
+        System.out.println(node.data);
+    }
+
+    // 2 :- BFS (level order traversal using Queue)
+
+    private void levelOrder(Node node) {
+        Queue<Node> nodeQueue = new Queue<Node>();
+        nodeQueue.offer(root);
+        while(!nodeQueue.isEmpty()) {
+            Node currentNode = nodeQueue.poll();
+            System.out.println(currentNode.data);
+            if(currentNode.left != null)
+                nodeQueue.offer(currentNode.left);
+            if(currentNode.right != null)
+                nodeQueue.offer(currentNode.right);
+        }
+    }
 }
